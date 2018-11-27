@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "f59c8536-7a5b-4832-98f2-58ae6a6725d2",
+		"name": "Trello2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "create myBoard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e57dcb50-bdae-478b-a706-34db7442a0a6",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"boardName\", jsonData.name)",
+									"pm.environment.set(\"myBoardId\", jsonData.id)",
+									"",
+									"pm.test(\"Your test name\", function () {",
+									"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"boardName\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/?name=myBoard&token={{trello-token}}&key={{trello-key}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "myBoard"
+								},
+								{
+									"key": "token",
+									"value": "{{trello-token}}"
+								},
+								{
+									"key": "key",
+									"value": "{{trello-key}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Put",
+			"item": []
+		},
+		{
+			"name": "Get",
+			"item": []
+		},
+		{
+			"name": "Del",
+			"item": [
+				{
+					"name": "delete board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d531878d-6da2-4ff2-a26a-652f29faed0c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/:id?token={{trello-token}}&key={{trello-key}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								":id"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{trello-token}}"
+								},
+								{
+									"key": "key",
+									"value": "{{trello-key}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{myBoardId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
